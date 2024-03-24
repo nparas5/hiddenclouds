@@ -32,8 +32,7 @@ The code to get web content will be defined in User-Data section of ec2 .
 
 EC2 instances installed with AWS CLI as well ,this allow to run cli command to interact with S3 bucket and download the web content.
 
-======================================
-
+=====================================
 #Other Design Consideration:
 
 This Static website could be run on S3 bucket with custom access policies for public ACLs. We can simply create static website of the given html file in S3 bucket. This can save cost and more efficient than the current one.
@@ -41,7 +40,6 @@ This Static website could be run on S3 bucket with custom access policies for pu
 
 
 =======================================
-
 #Terraform Code :
 
 I created 2 terraform files to accomplish this design:
