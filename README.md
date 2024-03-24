@@ -41,7 +41,8 @@ EC2 instances installed with AWS CLI as well ,this allow to run cli command to i
 =====================================
 
 
-#Other Design Consideration:
+**#Other Design Consideration:**
+========================================
 
 This Static website could be run on S3 bucket with custom access policies for public ACLs. We can simply create static website of the given html file in S3 bucket. This can save cost and more efficient than the current one.
 
@@ -50,7 +51,7 @@ This Static website could be run on S3 bucket with custom access policies for pu
 =======================================
 
 
-#Terraform Code :
+**#Terraform Code :**
 
 I created 2 terraform files to accomplish this design:
 
@@ -83,7 +84,7 @@ Outputs: Exports the names of the autoscaling group and the DNS name of the ALB 
 =======================================================
 
 
-vars.tf : I created variables for below items so that they can be simply called in the Terraform Code:
+# vars.tf : I created variables for below items so that they can be simply called in the Terraform Code:**
 
 
 public_subnet_ids: A list of IDs representing the public subnets where the EC2 instances and ALB will be deployed. The default value contains two subnet IDs.
@@ -117,12 +118,12 @@ Tried Troubleshooting cloud-init logs , tried adding user-data explicitly in she
 Have to manually register EC2 instance as targets in Target group. 
 
 
-# WORKAROUND I APPLIED
+#WORKAROUND I APPLIED
 
 Created pre-configured AMI from EC2 Instance and then use that AMI ID in the Terraform Code.
 
 
-# OTHER WORKAROUND 
+#OTHER WORKAROUND 
 
 Instead of using user-data we can use AWS Systems Manager to Run Command by using a Shell Script Runbook. It will have to assign SSM roles to Instance in order to manage them via SSM.
 
@@ -134,7 +135,7 @@ Instead of using user-data we can use AWS Systems Manager to Run Command by usin
 ====================
 
 
-**#PART -2** 
+# PART -2** 
 :
 
 Set up a Gitlab pipeline which updates changes to website code stored in your Gitlab code repository to the above-mentioned S3 bucket upon merge to Master branch. Change all the text to upper case and push changes to S3 bucket using your pipeline. In your pipeline, trigger instance refresh of the autoscaling group of Server fleet A, after successful push of code to S3 bucket.
