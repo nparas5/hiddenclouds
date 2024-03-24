@@ -352,6 +352,7 @@ admin@Admins-MacBook-Pro-2 prometheus %
 =========================================
 # Monitoring using Prometheus and Grafana
 
+![image](https://github.com/nparas5/hiddenclouds/assets/40522271/9d6a9067-7932-4462-9dc4-e20c17b499a4)
 
 
 
