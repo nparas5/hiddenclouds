@@ -411,7 +411,7 @@ This will open a browser window with the Prometheus web interface as below:
 
 #Deliverables:
 
-Connectivity to Counter-app did not worked, i  deployed the service to expose the port 80 externally but not able to access using miniube IP.
+Connectivity to Counter-app did not worked, i  deployed the service to expose the port 80 externally but not able to access using miniube IP. May be something needs to re-checked in docker file etc ......
 
 MySQL Able to Connect successfully.
 
