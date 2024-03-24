@@ -1,0 +1,19 @@
+# This file is a template, and might n
+
+ stages:
+  - deploy
+
+ deploy_to_s3:
+  stage: deploy
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+  only:
+    - main
+  script:
+    - aws s3 cp index.html s3://$S3_BUCKET_NAME/
+    - aws autoscaling start-instance-refresh --region ap-southeast-1 --auto-scaling-group-name server-autoscaling-group --preferences MinHealthyPercentage=90,InstanceWarmup=300
+  
+
+
+    
+
+
