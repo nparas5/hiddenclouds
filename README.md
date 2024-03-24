@@ -344,6 +344,9 @@ admin@Admins-MacBook-Pro-2 prometheus %
 
 # Communication with MySQL Server:
 
+admin@Admins-MacBook-Pro-2 docker-assesment % kubectl get svc mysql
+NAME    TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+mysql   LoadBalancer   10.104.180.18   <pending>     3306:31084/TCP   7h57m
 
 
 
@@ -404,6 +407,17 @@ This will open a browser window with the Prometheus web interface as below:
 
 ![image](https://github.com/nparas5/hiddenclouds/assets/40522271/a4534466-e65d-4d46-b96b-1aaeae3ec06b)
 
+
+
+#Deliverables:
+
+Connectivity to Counter-app did not worked, i  deployed the service to expose the port 80 externally but not able to access using miniube IP.
+
+MySQL Able to Connect successfully.
+
+Not able to check on connectivity between nginx pod and mysql pod. I assume some backend would be required in order to accomplish this or some code in seperate file (Java Script) and similar way docker build for those. Its like frontend nginx, backend like nodejs and then connectivity to SQL.
+
+Successfully Able to install prometheus and grafana on minilube cluster for monitoring purpose.
 
 
 
