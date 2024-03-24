@@ -58,7 +58,7 @@ main.tf
 vars.tf
 
 #**main.tf -  Consists of code creating all the infrastructure on AWS as below**:
-
+=======================
 
 Provider Configuration: Specifies the AWS region to use for provisioning resources.
 
@@ -79,6 +79,14 @@ Target Group: Defines a target group for the ALB to route traffic to instances o
 ALB Listener: Configures an ALB listener to forward incoming HTTP traffic to the target group.
 
 Outputs: Exports the names of the autoscaling group and the DNS name of the ALB for reference.
+
+=======================================================
+
+
+vars.tf : I created variables for below items so that they can be simply called in the Terraform Code:
+
+
+
 
 
 
