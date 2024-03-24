@@ -158,6 +158,203 @@ Workaround to this to use AWS Run Command via Systems Manager and execute the us
 
 ========
 
+# Scenario 2 - Kubernetes:
+
+=========
+
+
+**#I divided scenario two in below parts:**
+
+Creating Incremental and Decremental Counter Application in Kubernetes (Minikube)
+
+Deploy MySQL server in minikube.
+
+Create Table in MySQL server.
+
+Counter application must be able to communicate to MySQL.
+
+Install Prometheus and Grafana on minikube
+
+Monitor Cluster metrics using Prometheus and Visualize in Grafana.
+
+
+# Steps I have done on this scenario 
+
+#I have just setup minikube on mac and able to run it, created deployements for counter app and mysql and deployed in minikube.
+
+Both Pods running fine.
+
+#Installed Prometheus and Grafana for Monitoring.
+
+
+
+# Created Docker Image for Incremental and Decremental Counter according to our scenario using dockerfile as below:
+
+#DOCKERFILE FOR COUNTER APP
+
+#Use an official Nginx image as the base image
+FROM nginx:latest
+
+#Set environment variable for displaying first name
+ENV FIRST_NAME "Nitin Paras"
+
+#Copy the HTML file into the nginx server root directory
+COPY index.html /usr/share/nginx/html/index.html
+
+#Expose port 80
+EXPOSE 80
+
+#Start Nginx when the container starts
+CMD ["nginx", "-g", "daemon off;"]
+
+======================================
+
+Build Docker Image using this dockerfile and upload to docker hub repository.
+
+# Created below YAML file for counter app deployment:
+
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: counter
+  labels:
+    app: counter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: counter
+  template:
+    metadata:
+      labels:
+        app: counter
+    spec:
+      containers:
+        - name: counter
+          image: cloudmonknitin/incredecrement:tag
+          env:
+            - name: MYSQL_HOST
+              value: mysql
+            - name: MYSQL_USER
+              value: root
+            - name: MYSQL_PASSWORD
+              value: XXXXXXXXXX
+            - name: MYSQL_DATABASE
+              value: incredecreDB
+            - name: DISPLAY_NAME
+              value: "NitinParas"
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: counter
+spec:
+  selector:
+    app: counter
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: NodePort
+
+=========================================================
+
+**kubectly apply -f appcounter.yaml**
+
+
+
+# Created MySQL YAML file for Deployment of MySQL Server in MiniKube as below:
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+  labels:
+    app: mysql
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:latest
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: Bmwx5@yahoo
+            - name: MYSQL_DATABASE
+              value: incredecreDB
+            - name: MYSQL_USER
+              value: cloud
+            - name: MYSQL_PASSWORD
+              value: Bmwx5@yahoo1234
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+spec:
+  selector:
+    app: mysql
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+
+
+
+======================================
+
+kubectl apply -f mysql.yaml
+
+admin@Admins-MacBook-Pro-2 prometheus % kubectl get pods
+NAME                                  READY   STATUS    RESTARTS        AGE
+counter-854d5697bd-wv7fs              1/1     Running   1 (5h22m ago)   5h40m
+counter-deployment-57694fcf44-27bcr   1/1     Running   1 (5h22m ago)   6h35m
+mysql-7fff4d4f5b-wds9v                1/1     Running   1 (65m ago)     6h7m
+admin@Admins-MacBook-Pro-2 prometheus % 
+
+
+
+=======================================
+
+# Communication with MySQL Server:
+
+
+
+
+
+
+=========================================
+# Monitoring using Prometheus and Grafana
+
+
+
+
 
 
 
