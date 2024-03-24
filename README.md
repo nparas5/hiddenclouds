@@ -352,11 +352,57 @@ admin@Admins-MacBook-Pro-2 prometheus %
 =========================================
 # Monitoring using Prometheus and Grafana
 
+
+# Grafana Installation and Working Screenshot:
+
+
+helm repo add grafana https://grafana.github.io/helm-charts
+
+Next, we install Grafana by using the provided charts:
+
+helm install grafana grafana/grafana
+
+kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana-np
+
+Again, since we are using Minikube, in order to easily access Grafana's Web interface we expose the service as a NodePort.
+
+#**Note: Grafana is password protected by default, in order to retrieve the admin user password we can run the following command:
+**
+
+kubectl get secret --namespace default grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+We can now load the Grafana web interface using the admin user and the password retrieved:
+
+minikube service grafana-np
+
+
 ![image](https://github.com/nparas5/hiddenclouds/assets/40522271/9d6a9067-7932-4462-9dc4-e20c17b499a4)
 
 
 
 
+
+
+# Prometheus Installation and Working Screenshot:
+
+
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
+Once the repo is ready, we can install the provided charts by running the following commands:
+
+helm install prometheus prometheus-community/prometheus
+
+kubectl expose service prometheus-server --type=NodePort --target-port=9090 --name=prometheus-server-np
+
+
+kubectl get pods -l app.kubernetes.io/instance=prometheus
+
+As it also required to expose prometheus-server Service using a NodePort. This way we can now easily access the Prometheus web interface when the Pod is ready:
+
+minikube service prometheus-server-np
+
+This will open a browser window with the Prometheus web interface as below:
+
+![image](https://github.com/nparas5/hiddenclouds/assets/40522271/a4534466-e65d-4d46-b96b-1aaeae3ec06b)
 
 
 
