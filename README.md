@@ -57,10 +57,28 @@ I created 2 terraform files to accomplish this design:
 main.tf
 vars.tf
 
-main.tf -  Consists of code creating all the infrastructure on AWS as below:
+#**main.tf -  Consists of code creating all the infrastructure on AWS as below**:
 
 
+Provider Configuration: Specifies the AWS region to use for provisioning resources.
 
+IAM Role and Instance Profile: Creates an IAM role and instance profile allowing EC2 instances to access S3 and Systems Manager (SSM).
+
+AWS Managed Policies: Attaches AWS managed policies (e.g., AmazonS3FullAccess, AmazonSSMFullAccess) to the IAM role for necessary permissions.
+
+Security Group: Defines a security group for EC2 instances allowing inbound traffic on port 80 from an Application Load Balancer (ALB) and allowing all outbound traffic.
+
+Launch Configuration: Configures the launch configuration for EC2 instances, specifying the Amazon Linux 2 AMI, instance type, security group, IAM instance profile, and user data script to install Nginx and copy an HTML file from an S3 bucket.
+
+Autoscaling Group: Sets up an autoscaling group ensuring a desired number of EC2 instances are running.
+
+Public Application Load Balancer (ALB): Creates a public ALB allowing inbound traffic on port 80 and associating it with the defined security group.
+
+Target Group: Defines a target group for the ALB to route traffic to instances on port 80 and sets up a health check.
+
+ALB Listener: Configures an ALB listener to forward incoming HTTP traffic to the target group.
+
+Outputs: Exports the names of the autoscaling group and the DNS name of the ALB for reference.
 
 
 
