@@ -1,7 +1,11 @@
 # hiddenclouds
 
 ##Scenario 1 - Terraform, AWS, CICD: 
+
+
 #AWS Design Consists of Below:
+
+
 DESIGN FILE NAME -  AssessmentAWS2024.jpeg
 
 Region- ap-southeast-1
@@ -13,6 +17,8 @@ IAM User : Administrator
 IaC Used : Terraform v1.7.5
 
 ============================
+
+
 # About Design Consideration
 This design shows the nginx web servers running as ec2 in autoscaling group which exists in private subnets across 2 AZs.
 
@@ -33,6 +39,8 @@ The code to get web content will be defined in User-Data section of ec2 .
 EC2 instances installed with AWS CLI as well ,this allow to run cli command to interact with S3 bucket and download the web content.
 
 =====================================
+
+
 #Other Design Consideration:
 
 This Static website could be run on S3 bucket with custom access policies for public ACLs. We can simply create static website of the given html file in S3 bucket. This can save cost and more efficient than the current one.
@@ -40,6 +48,8 @@ This Static website could be run on S3 bucket with custom access policies for pu
 
 
 =======================================
+
+
 #Terraform Code :
 
 I created 2 terraform files to accomplish this design:
